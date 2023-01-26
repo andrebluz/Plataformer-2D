@@ -707,6 +707,7 @@ MonoBehaviour:
   _rb: {fileID: 1614631284}
   friction: {x: 0.1, y: 0}
   speed: 5
+  speedRun: 10
   forceJump: 15
 --- !u!50 &1614631284
 Rigidbody2D:
