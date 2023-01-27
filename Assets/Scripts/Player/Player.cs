@@ -30,11 +30,13 @@ public class Player : MonoBehaviour
 
     private bool _isRunning = false;
 
+    private bool isLive;
+
     private void Update()
     {
-        HandleJump();
-        HandleMovement();
-        GroundCheck();
+            HandleJump();
+            HandleMovement();
+            GroundCheck();
     }
 
     private void GroundCheck()
