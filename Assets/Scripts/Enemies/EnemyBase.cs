@@ -8,6 +8,14 @@ public class EnemyBase : MonoBehaviour
     public Animator anima;
     public string triggerAttack = "Attack";
 
+    public Health healthBase;
+
+    private void OnValidate()
+    {
+        try { healthBase = gameObject.GetComponent<Health>(); }
+        catch { Debug.LogWarning("Script Health não encontrado"); }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log(collision.transform.name);
@@ -22,5 +30,10 @@ public class EnemyBase : MonoBehaviour
     private void PlayAttackAnimation()
     {
         anima.SetTrigger(triggerAttack);
+    }
+
+    public void Damage(int amount)
+    {
+        healthBase.Damage(amount);
     }
 }
