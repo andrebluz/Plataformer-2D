@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D _rb;
+    public Health healthBase;
 
     public Vector2 friction = new Vector2(0.1f, 0);
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     private bool _scratch;
     public string boolRun = "Run";
     public string triggerJump = "Jump";
+    public string triggerDeath = "Death";
     public string triggerIsGrounded = "IsGrounded";
     public Animator anima;
     public float playerSwipeDuration = 0.1f;
@@ -40,9 +42,26 @@ public class Player : MonoBehaviour
 
     private bool isLive;
 
+    private void OnValidate()
+    {
+        try { healthBase = gameObject.GetComponent<Health>(); }
+        catch { Debug.LogWarning("Script Health não encontrado"); }
+    }
+
+
     private void Awake()
     {
         _initialSpeed = speed;
+        if (healthBase != null)
+        {
+            healthBase.OnKill += OnPlayerKill;
+        }
+    }
+
+    private void OnPlayerKill()
+    {
+        healthBase.OnKill -= OnPlayerKill;
+        anima.SetTrigger(triggerDeath);
     }
 
     private void Update()
